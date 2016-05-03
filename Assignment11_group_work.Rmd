@@ -1,0 +1,68 @@
+---
+title: "Assignment 11"
+output: html_document
+---
+
+
+```{r}
+#loading library
+library(dplyr, tidyr)
+```
+
+```{r}
+#creating table
+# TABLE1 <- read.csv("Jay to 23rd F line-acc_Steve.csv", sep = ",", header = TRUE)
+F_train <- read.csv("Jay to 2nd ave F line-acc_Ann.csv", sep = ",", header = TRUE)
+A_train <- read.csv("Jay to chamber a line-acc_Charlotte.csv", sep = ",", header = TRUE)
+# TABLE4 <- read.csv("Jay to Chamber a line-acc_Edison.csv", sep = ",", header = TRUE)
+
+```
+
+```{r}
+#adding a train column to the tables
+# TABLE1$train <- "F1"
+F_train$train <- "F"
+A_train$train <- "A"
+# TABLE4$train <- "A2"
+```
+
+```{r}
+# TABLE1$color <- "orange"
+F_train$color <- "orange"
+A_train$color <- "blue"
+
+```
+
+
+
+```{r}
+#slicing every table to same number of rows
+# TABLE1 <- slice(TABLE1, 1:10000)
+F_train <- slice(F_train, 1:10000)
+A_train <- slice(A_train, 1:10000)
+# TABLE4 <- slice(TABLE4, 1:10000)
+```
+
+```{r}
+#binding the tables together
+TABLE <- bind_rows(A_train, F_train)
+```
+
+```{r}
+#output data to csv file
+write.csv(TABLE, "final_data.csv")
+```
+
+
+
+```{r}
+#plot the table
+ggplot(TABLE, aes(time_tick, acc_X_value, color = train)) + geom_line(alpha = 0.8)
+ggplot(TABLE, aes(time_tick, acc_Y_value, color = train)) + geom_line(alpha = 0.8)
+ggplot(TABLE, aes(time_tick, acc_Z_value, color = train)) + geom_line(alpha = 0.8)
+       
+#I do not quite understand why the colors are reversed.
+```
+
+
+
